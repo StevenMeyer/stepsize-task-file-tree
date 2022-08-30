@@ -1,0 +1,24 @@
+.node-leaf {
+    display: inline-block;
+    margin: 4px 0;
+}
+
+.node-leaf__icon {
+    margin-right: 8px;
+}
+
+.node-leaf--collapsed::before {
+    color: var(--shadow-color, currentColor);
+    display: inline-block;
+    content: '[+]';
+    font-size: 11.4px; /* to make it 16px wide (to match the file icons) */
+    margin: 0 2px 0 -18px;
+}
+
+.node-leaf--expanded::before {
+    color: var(--shadow-color, currentColor);
+    display: inline-block;
+    content: '[-]';
+    font-size: 13.1px; /* to make it 16px wide (to match the file icons) */
+    margin: 0 2px 0 -18px;
+}
