@@ -15,10 +15,13 @@ const repos = {
 };
 
 function App() {
-  const [repoKey, setRepoKey] = useState<keyof typeof repos>('emptyRepo');
+  const [repoKey, setRepoKey] = useState<keyof typeof repos>();
 
-  const chosenRepo: Repository = useMemo(() => {
-    return repos[repoKey];
+  const chosenRepo: Repository | undefined = useMemo(() => {
+    if (repoKey === undefined && sessionStorage.getItem('repoName') === null) {
+      return emptyRepo;
+    }
+    return repoKey ? repos[repoKey] : undefined;
   }, [repoKey]);
 
   const handleSelect = (event: SyntheticEvent): void => {
