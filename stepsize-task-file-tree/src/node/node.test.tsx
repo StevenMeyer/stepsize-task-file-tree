@@ -1,9 +1,10 @@
 import {fireEvent, render, screen} from '@testing-library/react';
-import Node, {TreeNode} from '../node/node';
+import Node from '../node/node';
 import {useReducer} from 'react';
 import {treeReducer} from '../reducer/tree.reducer';
 import {Dispatcher} from '../root/root';
 import {FileIconsJs, WindowWithIcons} from '../leaf/file-icons-js';
+import {TreeNode} from '../tree-node';
 
 beforeEach(() => {
   (window as WindowWithIcons).icons = {

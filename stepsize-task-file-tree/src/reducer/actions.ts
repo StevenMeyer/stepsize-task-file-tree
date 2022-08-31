@@ -1,4 +1,5 @@
-import {TreeNode} from '../node/node';
+import {Repository} from '../repository';
+import {TreeNode} from '../tree-node';
 
 export interface Action {
   type: string;
@@ -13,4 +14,9 @@ export interface ExpandAction extends Action {
 export interface CollapseAction extends Action {
   type: 'COLLAPSE';
   payload: Pick<TreeNode, 'filePath'>;
+}
+
+export interface UseRepositoryAction extends Action {
+  type: 'USE_REPO';
+  payload: Repository;
 }

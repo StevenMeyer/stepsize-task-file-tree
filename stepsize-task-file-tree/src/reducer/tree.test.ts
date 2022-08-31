@@ -1,4 +1,5 @@
 import {treeReducer} from './tree.reducer';
+import {TreeNode} from '../tree-node';
 
 it('returns state for unknown actions', () => {
   const state = {
@@ -290,4 +291,107 @@ it ('collapses the middle of the tree without affecting other branches or ancest
       })
     ],
   }))
+});
+
+it('turns a Repository into a Tree', () => {
+  expect(treeReducer({
+    fileName: '',
+    filePath: '',
+    level: -1,
+    groupSize: -1,
+    groupPosition: -1,
+    expanded: false,
+  }, {
+    type: 'USE_REPO',
+    payload: {
+      name: 'My Repo',
+      filepaths: [
+        'a.md',
+        'b/b1.js',
+        'b/b2/b2a.html',
+        'b/b2/b2b/b2b1/a.md'
+      ],
+    },
+  })).toEqual(<TreeNode> {
+    fileName: '',
+    filePath: '',
+    level: -1,
+    groupSize: -1,
+    groupPosition: -1,
+    expanded: false,
+    children: [
+      {
+        fileName: 'a.md',
+        filePath: 'a.md',
+        level: 1,
+        groupSize: 2,
+        groupPosition: 1,
+        expanded: false,
+      },
+      {
+        fileName: 'b',
+        filePath: 'b',
+        level: 1,
+        groupSize: 2,
+        groupPosition: 2,
+        expanded: false,
+        children: [
+          {
+            fileName: 'b1.js',
+            filePath: 'b/b1.js',
+            level: 2,
+            groupSize: 2,
+            groupPosition: 1,
+            expanded: false,
+          },
+          {
+            fileName: 'b2',
+            filePath: 'b/b2',
+            level: 2,
+            groupSize: 2,
+            groupPosition: 2,
+            expanded: false,
+            children: [
+              {
+                fileName: 'b2a.html',
+                filePath: 'b/b2/b2a.html',
+                level: 3,
+                groupSize: 2,
+                groupPosition: 1,
+                expanded: false,
+              },
+              {
+                fileName: 'b2b',
+                filePath: 'b/b2/b2b',
+                level: 3,
+                groupSize: 2,
+                groupPosition: 2,
+                expanded: false,
+                children: [
+                  {
+                    fileName: 'b2b1',
+                    filePath: 'b/b2/b2b/b2b1',
+                    level: 4,
+                    groupSize: 1,
+                    groupPosition: 1,
+                    expanded: false,
+                    children: [
+                      {
+                        fileName: 'a.md',
+                        filePath: 'b/b2/b2b/b2b1/a.md',
+                        level: 5,
+                        groupSize: 1,
+                        groupPosition: 1,
+                        expanded: false,
+                      }
+                    ],
+                  }
+                ],
+              }
+            ],
+          }
+        ],
+      },
+    ],
+  })
 });

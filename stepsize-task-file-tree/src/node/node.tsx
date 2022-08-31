@@ -1,23 +1,9 @@
 import Leaf from '../leaf/leaf';
 import React, {SyntheticEvent, useCallback, useContext, useState} from 'react';
 import {Action} from '../reducer/actions';
+import {Dispatcher} from '../root/root';
 import './node.css';
-
-export interface TreeNode {
-  fileName: string;
-  filePath: string;
-  children?: TreeNode[];
-  /** Which level in the tree from the top is this node?. It won't affect the render order. */
-  level: number;
-  /** How many nodes are at this `level` in the tree? */
-  groupSize: number;
-  /** Which position in the group is this particular node? It won't affect the render order. */
-  groupPosition: number;
-  /** Is this node's subtree expanded? */
-  expanded: boolean;
-}
-
-export const Dispatcher = React.createContext<React.Dispatch<Action> | null>(null);
+import {TreeNode} from '../tree-node';
 
 const Node = ({ fileName, filePath, children, level, groupPosition, groupSize, expanded }: TreeNode) => {
   const dispatch = useContext(Dispatcher)!;
